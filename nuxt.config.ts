@@ -2,6 +2,7 @@ import { defineNuxtConfig } from "nuxt3";
 
 // https://v3.nuxtjs.org/docs/directory-structure/nuxt.config
 export default defineNuxtConfig({
+  ssr:true,
   publicRuntimeConfig: {
     WEATHER_APP_SECRET: process.env.WEATHER_APP_SECRET,
   },

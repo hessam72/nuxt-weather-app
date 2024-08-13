@@ -7,7 +7,9 @@ if (!cookie.value) cookie.value = "Toronto";
 const search = ref(cookie.value);
 const input = ref("");
 const background = ref("");
+onMounted(() => {
 
+})
 const { data: city, error } = useAsyncData(
   "city",
   async () => {
@@ -19,10 +21,12 @@ const { data: city, error } = useAsyncData(
         {
           params: {
             units: "metric",
+            // appid: config.WEATHER_APP_SECRET,
             appid: config.WEATHER_APP_SECRET,
           },
         }
       );
+      console.log(response)
 
       cookie.value = search.value;
 
@@ -41,12 +45,12 @@ const { data: city, error } = useAsyncData(
         background.value =
           "https://images.unsplash.com/photo-1507525428034-b723cf961d3e?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=3546&q=80";
       }
-    } catch (e) {}
+    } catch (e) {console.log(e)}
 
     return response;
   },
   {
-    watch: [search],
+    watch: [search],//each time this value changes refetching data
   }
 );
 
@@ -71,6 +75,7 @@ const goBack = () => {
 </script>
 
 <template>
+  {{ city }}
   <div v-if="city" class="h-screen relative overflow-hidden">
     <img :src="background" />
     <div class="absolute w-full h-full top-0 overlay" />
